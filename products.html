@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - Local Farmers' Market</title>
+    <style>
+        /* Reset default margin and padding */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        /* Header styling */
+        header {
+            background-color: #4CAF50; /* Green background color */
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+        /* Container for the main content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        /* Product display container */
+        .products-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 20px;
+        }
+        .product {
+            width: calc(33.33% - 20px);
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .product img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .product h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .product p {
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        .product button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        /* "Show More" button */
+        .show-more {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .show-more button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        /* Footer styling */
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px 0;
+            background-color: #333; /* Dark background color for footer */
+            color: #fff; /* Light text color */
+        }
+        footer a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Products</h1>
+    </header>
+
+    <div class="container">
+        <div class="products-container" id="productContainer">
+            <!-- Products will be dynamically added here -->
+        </div>
+
+        <!-- "Show More" button -->
+        <div class="show-more" id="showMoreContainer">
+            <button onclick="showMore()">Show More</button>
+        </div>
+
+        <!-- "Go to Cart" button -->
+        <div class="go-to-cart">
+            <button onclick="goToCart()">Go to Cart</button>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Local Farmers' Market</p>
+        </div>
+    </footer>
+
+    <script>
+        const products = {
+            vegetables: [
+                { name: "Carrot", price: 1.5, image: "carrot.jpg" },
+                { name: "Tomato", price: 2, image: "tomato.jpg.avif" },
+                { name: "Broccoli", price: 1.75, image: "broccoli.jpg" }
+            ],
+            fruits: [
+                { name: "Apple", price: 1, image: "apple.jpg.webp" },
+                { name: "Orange", price: 1.2, image: "orange.jpg" },
+                { name: "Banana", price: 0.8, image: "banana.jpg" }
+            ],
+            plants: [
+                { name: "Rose", price: 5, image: "rose.jpg" },
+                { name: "Lavender", price: 4, image: "lavender.jpg" },
+                { name: "Basil", price: 3, image: "basil.jpg" }
+            ]
+        };
+
+        let productCount = 3; // Initial product count (starting from 4th product)
+
+        // Function to display products based on category
+        function showProducts() {
+            const params = new URLSearchParams(window.location.search);
+            const category = params.get('category');
+            const container = document.getElementById('productContainer');
+            container.innerHTML = ""; // Clear previous content
+
+            if (products[category]) {
+                const productsList = products[category];
+
+                productsList.forEach((product, index) => {
+                    if (index < productCount) {
+                        const productElement = createProductElement(product);
+                        container.appendChild(productElement);
+                    }
+                });
+            } else {
+                container.textContent = "No products found.";
+            }
+        }
+
+        // Helper function to create product HTML element
+        function createProductElement(product) {
+            const productDiv = document.createElement('div');
+            productDiv.classList.add('product');
+
+            const img = document.createElement('img');
+            img.src = product.image; // Set the image source from product object
+            img.alt = product.name;
+            productDiv.appendChild(img);
+
+            const nameHeading = document.createElement('h3');
+            nameHeading.textContent = product.name;
+            productDiv.appendChild(nameHeading);
+
+            const priceParagraph = document.createElement('p');
+            priceParagraph.textContent = `$${product.price.toFixed(2)}`;
+            productDiv.appendChild(priceParagraph);
+
+            const addToCartButton = document.createElement('button');
+            addToCartButton.textContent = "Add to Cart";
+            addToCartButton.addEventListener('click', () => addToCart(product));
+            productDiv.appendChild(addToCartButton);
+
+            return productDiv;
+        }
+
+        // Function to load more products
+        function showMore() {
+            const container = document.getElementById('productContainer');
+            const params = new URLSearchParams(window.location.search);
+            const category = params.get('category');
+            const productsList = products[category];
+
+            for (let i = productCount; i < productCount + 3 && i < productsList.length; i++) {
+                const productElement = createProductElement(productsList[i]);
+                container.appendChild(productElement);
+            }
+
+            productCount += 3;
+        }
+
+        // Function to navigate to cart.html
+        function goToCart() {
+            window.location.href = "cart.html";
+        }
+
+        // Function to add item to cart (replace this with your actual addToCart function)
+        function addToCart(product) {
+            alert(`Added ${product.name} to cart!`);
+            console.log("Cart:", product);
+        }
+
+        // Initial call to show products when the page loads
+        showProducts();
+    </script>
+</body>
+</html>

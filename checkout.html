@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Local Farmers' Market</title>
+    <link rel="stylesheet" href="style.css"> 
+</head>
+<body>
+    <header>
+        <h1>Checkout</h1>
+    </header>
+
+    <div class="container">
+        <div id="cartContainer">
+            <!-- Cart items will be displayed here -->
+        </div>
+
+        <!-- Checkout Button -->
+        <button onclick="checkout()">Checkout</button>
+
+        <!-- Payment Options -->
+        <div id="paymentOptions">
+            <h3>Select Payment Method:</h3>
+            <input type="radio" id="creditCard" name="paymentMethod" value="creditCard">
+            <label for="creditCard">Credit Card</label>
+            <input type="radio" id="paypal" name="paymentMethod" value="paypal">
+            <label for="paypal">PayPal</label>
+            <input type="radio" id="connectips" name="paymentMethod" value="connectips">
+            <label for="connectips">ConnectIPS</label>
+        </div>
+    </div>
+
+    <!-- <footer>
+        <div class="container">
+            <p>&copy; 2024 Local Farmers' Market</p>
+        </div>
+    </footer> -->
+
+    <script src="script.js"></script>
+    <script>
+        displayCart(); // Display cart items on the checkout page
+    </script>
+</body>
+</html>

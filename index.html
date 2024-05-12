@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Online Store</title>
+    <style>
+        /* Reset default margin and padding */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5; /* Light background color */
+            color: #333; /* Dark text color */
+        }
+        /* Container for the main content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        /* Header styling */
+        header {
+            background-color: #4CAF50; /* Green background color */
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+        /* Navigation styling */
+        nav {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        nav a {
+            text-decoration: none;
+            color: white;
+            padding: 10px;
+        }
+        nav a:hover {
+            background-color: #333;
+        }
+        /* Product category boxes */
+        .category-box {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+        .category {
+            width: 300px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .category:hover {
+            background-color: #e0e0e0;
+        }
+        .category img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-bottom: 15px;
+        }
+        /* Footer styling */
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px 0;
+            background-color: #333; /* Dark background color for footer */
+            color: #fff; /* Light text color */
+        }
+        footer a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Welcome to My Online Store</h1>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="cart.html">Cart</a>
+                <a href="register.html">Register</a>
+                <a href="login.html">Login</a>
+            </nav>
+        </header>
+
+        <!-- Product Category Boxes -->
+        <div class="category-box">
+            <a class="category" onclick="selectCategory('vegetables')">
+                <img src="vegetables.jpg.webp" alt="Vegetables">
+                <h2>Vegetables</h2>
+            </a>
+            <a class="category" onclick="selectCategory('fruits')">
+                <img src="fruits.jpg" alt="Fruits">
+                <h2>Fruits</h2>
+            </a>
+            <a class="category" onclick="selectCategory('plants')">
+                <img src="plants.jpg.png" alt="Plants">
+                <h2>Plants</h2>
+            </a>
+        </div>
+    </div>
+
+    <!-- Footer with copyright -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Local Farmers' Market</p>
+        </div>
+    </footer>
+    <!-- <script src="script.js"></script> -->
+
+
+    <script>
+        // Function to handle category selection and navigate to products.html with category parameter
+        function selectCategory(category) {
+            window.location.href = `products.html?category=${category}`;
+        }
+    </script>
+</body>
+</html>

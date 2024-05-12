@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart - Local Farmers' Market</title>
+    <link rel="stylesheet" href="style.css"> 
+</head>
+<body>
+    <header>
+        <h1>Cart</h1>
+    </header>
+
+    <div class="container">
+        <div id="cartContainer">
+            <!-- Cart items will be dynamically added here -->
+        </div>
+        <div class="go-to-cart">
+            <button onclick="goToCheckout()">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <!-- <footer>
+        <div class="container">
+            <p>&copy; 2024 Local Farmers' Market</p>
+        </div>
+    </footer> -->
+    <!-- <script src="script.js"></script> -->
+
+    <script>
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        function displayCart() {
+            const cartContainer = document.getElementById('cartContainer');
+            cartContainer.innerHTML = ''; // Clear previous content
+
+            if (cart.length === 0) {
+                cartContainer.textContent = 'Your cart is empty.';
+            } else {
+                cart.forEach((product) => {
+                    const cartItem = document.createElement('div');
+                    cartItem.textContent = `${product.name} - $${product.price.toFixed(2)}`;
+                    cartContainer.appendChild(cartItem);
+                });
+            }
+        }
+
+        function goToCheckout() {
+            window.location.href = "checkout.html";
+        }
+
+        displayCart(); // Display cart items
+    </script>
+</body>
+</html>
